@@ -1,6 +1,8 @@
 # Learning
 My learnings and notes
 
+![Brain](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Brain)
+
 # Procedure
 ## Make your syllabi
 - in this step start searching for thinngs to be covered for the subject.
