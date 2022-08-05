@@ -14,3 +14,4 @@
 - Porn will fuck off your eyesight , be aware of it. Stay away from it.
 - Brain & Network (online) are heavy on eyesight.
 - Body is benificial for your eyesight.
+- Don't gaze.
