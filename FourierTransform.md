@@ -13,5 +13,5 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 
 **Formulae**
 - $X(t) \rightarrow X(j \omega)$
-- $X(j \omega ) = \int_{-\inft}^\inft$
+- $X(j \omega ) = \int_{-\infty}^\infty$
 
