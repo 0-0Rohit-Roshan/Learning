@@ -19,8 +19,39 @@
 |$$L(Cos(hat)) = \frac{s}{s^2-a^2}$$ |$$L^{-1}(\frac{s}{s^2-a^2}) = Cos(hat)$$
 
 
+**First Shifting Theorem** for laplace  
+if $L(f(t)) = f(s)$  
+then $L(e^{at}f(t)) = f(s-a)$
+- First find the laplace of $f(t)$ then replace  "$s$" with " $s-a$"
 
+[**First Shifting Theorem** for `Inverse` laplace](https://piped.kavin.rocks/watch?v=f7IQqZ9zBiY&t=300)
 
+$$L^{-1}(f(s)) = f(t)$$
+$$L^{-1}(f(s-a)) = e^{at}f(t)$$
+$$L^{-1}(f(s-a)) = e^{at} L^{-1}(f(s))$$
+
+**Second Shifting Theorem** for laplace
+<!-- # A collapsible section with markdown -->
+<details>
+  <summary> Prerequisite - Unit Step Function</summary>
+  
+  $$H(t-a) =  \left\{
+\begin{array}{ll}
+      1 & t\geqslant a \\
+    
+      0 & t < a \\
+\end{array} 
+\right.  $$
+</details>
+
+$$L(f(t)) = f(s)$$
+$$L(f(t-a)H(t-a)) = e^{as} f(s)$$
+
+- Find the Laplace of $f(t)$ then replace the value of $a$ in $e^{as}$
+
+**Second Shifting Theorem** for Inverse laplace
+$$L^{-1}(f(s)) = f(t)$$
+$$L^{-1}(e^{as}f(s)) = f(t-a) H(t-a)$$
 
 
 

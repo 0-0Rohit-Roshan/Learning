@@ -6,6 +6,7 @@ My learnings and notes
 | [Network](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Network)
 | [Eyesight](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Eyesight)
 # Procedure
+- Take Guidance , that's a key.
 ## Make your syllabi
 - in this step start searching for thinngs to be covered for the subject.
 - Make a list of them in order.(Topics and Subtopics)
