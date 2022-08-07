@@ -17,6 +17,24 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 - $X(j \omega ) = \int_{-\infty}^\infty$
 - Fourier Transform $$f(s) = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} e^{i \eta x} f(x) dx$$
 - Inverse Fourier Transform $$f(x) = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} e^{i \eta x} f(s) ds$$
+- Fourier $Sine$ Transform $$f_s (s) =  \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(x) Sine(sx) dx$$ Inverse Fourier $Sine$ Transform $$f_s (x) = \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(s) Sine(sx) ds$$
+- Fourier $Cosine$ Transform $$f_c (s) = \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(x) Cos(sx) dx$$ Inverse Fourier $Cosine$ Transform $$f_c(x) = \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(s) Cos (sx) ds$$
+- Appliation of Fourier Transform to `Boundary Value Problem` (_solving partial deferential equation with the help of fourier transform_)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
