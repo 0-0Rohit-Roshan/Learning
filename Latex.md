@@ -57,3 +57,6 @@ Phi 	|ϕΦ|\phi \Phi
 Chi 	|χX|\chi X
 Psi 	|ψΨ|\psi \Psi
 Omega 	|ωΩ|\omega \Omega
+**Latex how to write bar**
+Bar|$\bar{X}$|\bar{X}
+Overline|$\overline{X}$|\overline{X}
