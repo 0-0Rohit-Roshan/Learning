@@ -1,4 +1,4 @@
-# Z Trancform 
+# Z Transform 
 [YT Gajendra Purohit](https://youtu.be/-wrtOYPdbGE)
 
 ###### Electrical
