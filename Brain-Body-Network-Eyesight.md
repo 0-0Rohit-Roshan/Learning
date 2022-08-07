@@ -1,9 +1,11 @@
+These 4 things will submerge for the content of my digital accounts (YT , Twitter , Insta ), I am a `fit programmer` and `digital nomad` for **Digital fantacy**.Brain and Body will play the major role Network and Eyesight are sort of helping hands.
 ### Brain
 - [Learn](https://github.com/0-0Rohit-Roshan/Learning/blob/main/README.md#Procedure)
 - Make commits.
 
 ### Body
 - Do Streatchings.
+- Do `Deep Squat` (it's for lower body part) , Do `Plank` , `Suryanamaskar` , `High Hip` or just stay in the `Push Up pose`.
 - Calisthenics will be even better , But it sweats so do streatchings at least.
 
 ### Network
