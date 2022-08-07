@@ -22,4 +22,10 @@
 |Display|Benq|13K
 ||Total |150k
 - Today here by i conclude that pc build is cheaper laptop wort 150K is not that much valuable.
-- Make some `models` on your  laptop wstch pc build then decied.
+- Make some `models` on your  laptop watch ML Rig.
+- Power supply unit = (all cpu watts + all gpu watts)* 100%
+
+- ML Requirment 
+![img](Resource/Ml-Requirment.png)
+- Basic ML Rig Parts
+![parts](Resource/Parts-of-ML-Rig.png)
