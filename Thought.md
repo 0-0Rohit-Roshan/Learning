@@ -5,3 +5,11 @@
 - 
 
 
+
+
+**Behavioral analysis of People around me -**
+- **Divakar**
+- They do a lot of hard work and when fall short of will power they behave in the way you see them.
+- That provides an refresment.
+
+
