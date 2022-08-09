@@ -60,3 +60,5 @@ Omega 	|ωΩ|\omega \Omega
 **Latex how to write bar**
 Bar|$\bar{X}$|\bar{X}
 Overline|$\overline{X}$|\overline{X}
+**Latex gradient symbol**
+Del Operator `nabla`|$\nabla$|\nabla
