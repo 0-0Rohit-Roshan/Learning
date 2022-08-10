@@ -1,1 +1,0 @@
-[S2t](https://www.youtube.com/watch?v=68YaoaM4f34)
