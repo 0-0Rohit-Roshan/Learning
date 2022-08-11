@@ -9,7 +9,7 @@ is a mathematical transform that decomposes functions depending on space or time
 - Impulse signal related signal (But donot exist for Neither energy nor power signal).It is an exception of NENP because it is an absolutely intigratable signal.
 
 **Representation**  
-$x(t) <=> X(j \omega) or X(F)$  
+$x(t) \longleftrightarrow X(j \omega) or X(F)$  
 $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 
 **Formulae**
