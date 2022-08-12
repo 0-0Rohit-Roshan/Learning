@@ -1,6 +1,6 @@
 Microwave Components
 - Passive Components `Important`
-    * Transmission Line
+    * [Transmission Line](https://www.youtube.com/watch?v=-LS8qhXTN9M&list=PLuVz54MGu97Caj4fn1_5Vsdrr_PCOLK37)
     * Couples
     * Power Dividers
     * Filters
@@ -8,7 +8,7 @@ Microwave Components
     * Duplexers
     * Phase Shifters  
     * Antennas `Not Important`
-- Acive Components `Not Important`
+- Active Components `Not Important`
     * Power Amplifier
     * Low Noise Amplifier
     * MIxers
@@ -43,6 +43,23 @@ Microwave Components
 * The terminated lossy line
 * The porturbation Method for calculating attenuation
 * Eqns Describing Smith Chart
+
+#### Transmissionline Eqns
+- [TP](https://www.youtube.com/watch?v=b_VCIdXEK2I)
+- The units of the parameters sre in `per meter` to find the absolute value multiply $\Delta_x$
+- Now `Inductance` $L\Delta_x$ `Resistance` $R\Delta_x$ `Cunductance` $G\Delta_x$ `Capacitance` $C\Delta_x$
+- `Current` $I + \Delta I$ `Voltage` $V +\Delta V$
+- $\Delta V = - (R+j \omega l \Delta_x)I$ the negative sign is because input voltage is greater than (equalto ) output voltage.
+- $\lim_{\Delta_x \to 0} \frac{\Delta V}{\Delta X} = - (R+j \omega l)I = \frac{dV}{dX}$
+- $\Delta I = \frac{dI}{dX} = - (G+j \omega C)V$  
+![img](..\Resources\transmission-line-Equation.jpg)
+- $V(x,t) = ( V^+ e^{- \gamma x} + V^- e^{+ \gamma x}) e^{j \omega t}  $
+- $\gamma = \alpha + j \beta$ 
+- $\gamma$ `Propogation constant` $\alpha$ `Attenuation Const` $\beta$ `Phase Const`
+- For lossless medium ($\alpha = 0$) no attenuation  
+![img](..\Resources\transmission-line-Equation2.jpg)  
+![img](..\Resources\Propogation-eqn.jpg)
+- Above eqn shows that voltage is a wave.Due to similarities.
 
 
 

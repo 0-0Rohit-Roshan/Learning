@@ -1,3 +1,4 @@
+- TDM FDM
 - Concept of Spectrum
 - [Frequency spectrum](https://www.youtube.com/watch?v=r18Gi8lSkfM) 
 - Amplitude Spectrum - Variation of frequency for frequency.
