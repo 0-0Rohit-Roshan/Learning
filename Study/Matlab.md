@@ -57,7 +57,10 @@ plot(t,(impulse));
 
 
 
-
+### Publish
+- This section will generate a html webfile which will contain your `code` reasult `graphs` & console `outputs`, By clicking on publish.
+- You can add these things to it in code editor like Latex Eqn
+![Resources\Publish-Matlab.jpg](..\Resources\Publish-Matlab.jpg)
 
 
 

@@ -39,9 +39,11 @@ Z(s)|$$\frac{1}{CS}$$ | $$LS$$ | $$R$$
 Y(s)| $$CS$$ | $$ LS $$ | $$ \frac{1}{R} $$
 
 
+Transfer function:
+- begin by writing a general nth-order, linear, time-invariant differential
+equation,Take laplace transform, Then the ratio of the input & output side.
 
-
-
+`Zero initial conditions` mean that the system is rest and no energy is stored in any components of the circuit. Generally, zero indicates linear system i.e. if there is no input then there should be zero output.
 
 
 
@@ -58,6 +60,16 @@ Y(s)| $$CS$$ | $$ LS $$ | $$ \frac{1}{R} $$
 Q. Differential vs Difference eqn ?  
 Q. Single Input Single Output (SISO) vs Multi input Multi Output (MIMO) System?
 Q. RLC Tank Circuit?
+- Open Loop System Applications
+    - Washing Machine.
+    - Electric Bulb.
+    - Electric Hand Drier.
+    - Time based Bread Toaster.
+    - Automatic Water Faucet.
+    - TV Remote Control.
+    - Electric Clothes Drier.
+    - Shades or Blinds on a window.
+- The main difference between an open-loop system and a closed-loop system is that the closed-loop system has the ability to self-correct while the open-loop system doesn't.
 
 
 
