@@ -23,9 +23,21 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 
 
 
-
-
-
+### Fourier transform of Periodic Signal 
+[Neso](https://www.youtube.com/watch?v=9I4z5JPbvgg)
+- $X(t) = $ Periodic signal $\leftrightarrow X(\omega) = ?$
+- `Complex Fourier series expansion` of $X(t)$ is $\sum_{n=- \infty}^{\infty} C_n e^{jn \omega_0t}$
+- $A_0 \leftrightarrow 2\pi A_0 \delta (\omega)$
+- $A_0 = 1 \leftrightarrow 2\pi \delta (\omega)$
+- $C_n \leftrightarrow 2\pi C_n \delta (\omega)$ --- $ \therefore$ fourier transform follows the `principle of homoginity`.
+- $C_n e^{jn \omega_0t} \leftrightarrow 2\pi C_n \delta (\omega - n\omega_o)$
+- $X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi C_n \delta (\omega - n\omega_o)$ --- $ \therefore$ fourier transform follows the `Law of Additivity`.  
+- Steps 
+    - Find the equation of periodic signal $C_n$
+    - Apply $$X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi C_n \delta (\omega - n\omega_o)$$
+- Example `Rectangular pulse train`
+    - $C_n = \frac{A_o \tau}{T_o} Sa{\frac{n \omega_o \tau}{\tau}}$
+    - $X \omega_o = X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi [\frac{A_o \tau}{T_o} Sa{\frac{n \omega_o \tau}{\tau}}] \delta (\omega - n\omega_o) $
 
 
 
