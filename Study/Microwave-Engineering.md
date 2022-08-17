@@ -62,6 +62,16 @@ Microwave Components
 - Above eqn shows that voltage is a wave.Due to similarities.
 
 
+#### Smith Chart
+- Stub Matching Problem
+    - Series
+        - O/c Open Circuit
+        - S/c Short Circuit
+    - Shunt
+        - O/c Open Circuit
+        - S/c Short Circuit
+-  The goal that stubs are designed to accomplish is to cancel out the `reactive component` of the load to be matched, thus they will only work at a specific frequency.
+
 
 
 

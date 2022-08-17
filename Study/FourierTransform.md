@@ -21,7 +21,11 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 - Fourier $Cosine$ Transform $$f_c (s) = \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(x) Cos(sx) dx$$ Inverse Fourier $Cosine$ Transform $$f_c(x) = \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(s) Cos (sx) ds$$
 - Appliation of Fourier Transform to `Boundary Value Problem` (_solving partial deferential equation with the help of fourier transform_)
 
-
+### Fourier transform of test signals
+- ramp
+- unit impulse
+- unit step
+- rectangular impulse
 
 ### Fourier transform of Periodic Signal 
 [Neso](https://www.youtube.com/watch?v=9I4z5JPbvgg)
@@ -34,7 +38,9 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 - $X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi C_n \delta (\omega - n\omega_o)$ --- $ \therefore$ fourier transform follows the `Law of Additivity`.  
 - Steps 
     - Find the equation of periodic signal $C_n$
-    - Apply $$X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi C_n \delta (\omega - n\omega_o)$$
+    - Apply for `e` exponential $$X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi C_n \delta (\omega - n\omega_o)$$
+    - For trgnometric function $$Cos (2\pi f_t) \leftrightarrow \frac{1}{2}[\delta(f-f_c) + \delta(f+f_c)]$$  $$Sin (2\pi f_t) \leftrightarrow \frac{1}{2}[\delta(f-f_c) - \delta(f+f_c)]$$
+    - Signum function
 - Example `Rectangular pulse train`
     - $C_n = \frac{A_o \tau}{T_o} Sa{\frac{n \omega_o \tau}{\tau}}$
     - $X \omega_o = X(\omega) = \sum_{n=- \infty}^{\infty} 2\pi [\frac{A_o \tau}{T_o} Sa{\frac{n \omega_o \tau}{\tau}}] \delta (\omega - n\omega_o) $

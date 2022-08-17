@@ -24,7 +24,7 @@
     * Application of Delta function ?
 - Fourier transform of Delta function
 - [Fourier transform of Periodic Signal](Study\FourierTransform.md#)
-
+- Continous wave modulation.
 
 
 
