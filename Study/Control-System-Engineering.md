@@ -41,7 +41,7 @@ Y(s)| $$CS$$ | $$ LS $$ | $$ \frac{1}{R} $$
 
 Transfer function:
 - begin by writing a general nth-order, linear, time-invariant differential
-equation,Take laplace transform, Then the ratio of the input & output side.
+equation,Take laplace transform, Then the ratio of the input & output side after laplace transform.
 
 `Zero initial conditions` mean that the system is rest and no energy is stored in any components of the circuit. Generally, zero indicates linear system i.e. if there is no input then there should be zero output.
 

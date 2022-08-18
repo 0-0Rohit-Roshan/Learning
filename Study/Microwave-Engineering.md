@@ -71,8 +71,11 @@ Microwave Components
         - O/c Open Circuit
         - S/c Short Circuit
 -  The goal that stubs are designed to accomplish is to cancel out the `reactive component` of the load to be matched, thus they will only work at a specific frequency.
-
-
+- Components
+    - Constant Resistance circle
+    - constant Inductance/capacitance line (Inductive/Capacitive half)
+    - constant VSWR Circle
+    - 1 round is 1/2 $\lambda$ L length of the transmission line
 
 
 
