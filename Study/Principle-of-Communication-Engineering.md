@@ -23,7 +23,7 @@
     * Delta function can be considerd as a limiting form of Gaussian pulse.
     * Application of Delta function ?
 - Fourier transform of Delta function
-- [Fourier transform of Periodic Signal](Study\FourierTransform.md#)
+- [Fourier transform of Periodic Signal](FourierTransform.md)
 - Continous wave modulation.
 
 

@@ -4,7 +4,7 @@
 
 
 #### Classes of System
-![img](..\Resources\Clssses-of-System.jpg)
+![img](../Resources/Clssses-of-System.jpg)
 
 #### Required Formulae
 - `s` in laplace = $\sigma+j\omega$ 

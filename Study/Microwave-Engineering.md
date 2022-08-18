@@ -52,13 +52,13 @@ Microwave Components
 - $\Delta V = - (R+j \omega l \Delta_x)I$ the negative sign is because input voltage is greater than (equalto ) output voltage.
 - $\lim_{\Delta_x \to 0} \frac{\Delta V}{\Delta X} = - (R+j \omega l)I = \frac{dV}{dX}$
 - $\Delta I = \frac{dI}{dX} = - (G+j \omega C)V$  
-![img](..\Resources\transmission-line-Equation.jpg)
+![img](../Resources/transmission-line-Equation.jpg)
 - $V(x,t) = ( V^+ e^{- \gamma x} + V^- e^{+ \gamma x}) e^{j \omega t}  $
 - $\gamma = \alpha + j \beta$ 
 - $\gamma$ `Propogation constant` $\alpha$ `Attenuation Const` $\beta$ `Phase Const`
 - For lossless medium ($\alpha = 0$) no attenuation  
-![img](..\Resources\transmission-line-Equation2.jpg)  
-![img](..\Resources\Propogation-eqn.jpg)
+![img](../Resources/transmission-line-Equation2.jpg)  
+![img](../Resources/Propogation-eqn.jpg)
 - Above eqn shows that voltage is a wave.Due to similarities.
 
 

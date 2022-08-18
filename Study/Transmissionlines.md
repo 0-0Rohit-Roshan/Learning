@@ -12,7 +12,7 @@
     * G Conductance
         * Neglect (Due to leakage over line insulators)
     * `R , L` are in series `C , G` are in shunt
-![img](..\Resources\transmission-line-model-compressor.jpg)
+![img](../Resources/transmission-line-model-compressor.jpg)
 - Change `R,L,G,C` to change the performance (Power transmitted , Power lossed) of the transmision line.
 - $$Z_{series} = R + j \omega l$$
 - $$ \omega l = x \Longleftrightarrow x = 2 \pi f l$$
