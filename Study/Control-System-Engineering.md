@@ -28,7 +28,7 @@ $Sin \omega t(at)$|$$\frac{\omega}{s^2+ \omega^2}$$
 
 - Infinite Value Theorem
 
-![img](\..\Resources\Model-combined.jpg)
+![img](../Resources/Model-combined.jpg)
 
 Component|Capacitor|Inductor|Resistor
 --|--|--|--
