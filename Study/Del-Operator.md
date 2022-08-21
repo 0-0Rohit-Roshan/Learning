@@ -1,6 +1,6 @@
 ### Del Operator
 - Del operator of Scaler is `Gradient of Scaler`
-    * Gradient of vector is INvalid 
+    * Gradient of vector is Invalid 
     * Gradient of Scaler reasults a vector Quantity.
     * **Cartesian:** $\nabla V$
     * $$\nabla V = \frac{\delta{V}}{\delta{x}}\hat {a_x}+\frac{\delta{V}}{\delta{y}}\hat {a_y}+\frac{\delta{V}}{\delta{z}}\hat {a_z}$$ 

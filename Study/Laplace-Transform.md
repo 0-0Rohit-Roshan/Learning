@@ -3,6 +3,7 @@
 - [Wiki](https://en.wikipedia.org/wiki/Laplace_transform#Formal_definition) | [YT Gajendra Purohit](https://youtu.be/EDVJotmT584)
 
 **Definition**
+-  is an integral transform that converts a function of a real variable (usually $t$, in the time domain) to a function of a complex variable $s$ (in the complex frequency domain, also known as s-domain, or s-plane). </br> It is a tool for solving differential equations.</br>It transforms ordinary differential equations into algebraic equations and convolution into multiplication.
 - Let $F(t)$ be a function of $t$ defined for { $0 \leqslant t < \infty$} then laplace transform of $f(t)$ denoted by $L[f(t)]$ or $F(s)$ is defined by 
 - $$L[f(t)] = F(s) = \int_0^\infty e^{-st} f(t) dt $$
 - $s \geqslant 0$ otherwise undefined integration.  

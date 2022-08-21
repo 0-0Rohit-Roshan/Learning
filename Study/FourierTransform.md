@@ -27,6 +27,8 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 - unit step
 - rectangular impulse
 
+ [Fourier transforms and delta functions](https://www.youtube.com/watch?v=8abBLKEZLaI)
+
 ### Fourier transform of Periodic Signal 
 [Neso](https://www.youtube.com/watch?v=9I4z5JPbvgg)
 - $X(t) = $ Periodic signal $\leftrightarrow X(\omega) = ?$

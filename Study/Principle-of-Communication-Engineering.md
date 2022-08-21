@@ -17,8 +17,9 @@
 - Pulse shifting
 - Q. Why transmit gausian pulse instead of rectangular pulse ?
 - Energy spectral Density
-- Q. Energy of Sinc pulse ?
-- Dirac Delta Function
+- Q. Energy of Sinc pulse ?  
+**Dirac Delta Function**
+- a generalized function or distribution over the real numbers, whose value is zero everywhere except at zero, and whose integral over the entire real line is equal to one.
 - Q. Fourier Transform of Delta Function ?
     * Delta function can be considerd as a limiting form of Gaussian pulse.
     * Application of Delta function ?
