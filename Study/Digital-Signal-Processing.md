@@ -1,4 +1,5 @@
 Signal 
+- [CLASSIFICATION of SIGNALS](https://www.youtube.com/watch?v=L19p9Qa_Wlg)
 - Uniform Sampler & Non Uniform Sampler
 - Quantisation
 - Periodic & Aperiodic Signal
@@ -30,7 +31,12 @@ system
     - Stability function
 - Properties of convolution
 - convoltion clock
-- Corelation
+**Correlation**
+- Types
+
+Cross-correlation|Auto-Correlation|Circular-correlation
+--|--|--
+Two different Signals `X` & `Y` , Cross-correlation $r_{xy}$|
 - Corelation Coefficient
 
 
