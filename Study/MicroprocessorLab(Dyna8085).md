@@ -1,0 +1,49 @@
+**8 Bit Square (16 Bit output)**
+```R
+A C000
+MVI B,00
+MVI C,03
+LXI H,0000
+MOV D,C
+DAD B
+DCR D
+JNZ C008
+RST 1
+```
+
+**8 Bit Division**
+```
+A C000
+MVI A,06
+MVI B,00
+MVI C,02
+CMP C
+JC C00F
+INR B
+SUB C
+JNZ C006
+RST 1
+```
+
+
+**16 Bit Division**
+```
+A C000
+LXI H,3000
+LXI D,0500
+LXI B,0000
+INX B
+MOV A,L
+SUB E
+MOV L,A
+MOV A,H
+SBB D
+MOV H,A
+CMP D
+JC C01C
+MOV A,L
+CMP E
+JC C01C
+JUMP C009
+RST 1
+```
