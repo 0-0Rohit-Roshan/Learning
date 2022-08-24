@@ -117,11 +117,37 @@ Note
     - Single sideband carrier
     - Vastigial sideband
 
+### Double Sideband Supressed Carrier Modulation
+
+**Generation of DSB-SC**
+
+**Demodulation of DSB-SC**
+- **Coherent Detection**
+-
+- **Coherent DEtection with Phase Shift in Local oscilator**
+- 
+
+**Costas Reciever**  
+**Quadrature Carrier Multiplexing**  
+**Quadrature carrier DEmodulation**
+
+
+
+
+
 ### Single Sideband Modulation
 [Yt](https://www.youtube.com/watch?v=0PyLguMXRfc)
 
+**Hilbert Transform**
+- Shift the characteristics of a signal by $\pm90\degree$, $$X_h(t) = H[X(t)] = \frac{1}{\pi} \int_{-\infty}^{\infty} \frac{X(k)}{t-k} dk$$
+$$= X(t) * \frac{1}{\pi t}$$
+- Taking FT both side, $$jX_h(f) = X(f) j Sgn(f)$$
+
 **Generation of SSB Signal**  
 [**Phase Shifter Method**](https://www.youtube.com/watch?v=D6IBERQFP3s)  
+
+- [Donald Duck](https://www.youtube.com/watch?v=fQYEQig6O64)  
+
 **Detection of SSB Signal With a Carrier**
 - $$\phi_{SSB+C} = A_c Cos(2 \pi f_ct) + [m(t)Cos(2 \pi f_ct)+m_h(t)Sin(2 \pi f_ct)]$$
 - If the carrier signal can be extracted by narrow-band-filtering of $\phi_{SSB+C}$ then $m(t)$ can be recovered by `Coherrent detection` .

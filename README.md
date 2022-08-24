@@ -20,6 +20,10 @@ My learnings and notes
 - Do some practice problems or application.
 
 
+[**The Black Box Method: How to Learn Hard Concepts Quickly**](https://m.youtube.com/watch?v=RDzsrmMl48I)  
+[**How To Self-Study Math**](https://www.youtube.com/c/TheMathSorcerer)
+
+
 
 
 
