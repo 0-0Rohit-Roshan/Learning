@@ -29,7 +29,14 @@
 
 ### Continuos Wave Modulation
 - The Objective of modulation is to shift the base band to the frequency range suitable for Transmission .
-- 
+-  Shifting a range of frequency is achived by modulation.
+- `Modulation` -  The process by which carachteristic of a carrier signal is changed in acordance to message signal.
+- `Demodulation` - Resotring the passband signal to baseband signal .
+- The Modulatron is the core of the transmitter and the Demodulation is the core of the reciver.
+- `Q.` [Why only sinusuidal signal as carrier in modulation ?](https://www.quora.com/Why-are-sinusoidal-signals-used-as-carriers-in-modulation-technique)  
+`A.`  To avoid aliasing and bandwidth congestion we use sinusoidal waves for modulation techniques.
+
+
 
 ### Single Sideband Modulation
 [Yt](https://www.youtube.com/watch?v=0PyLguMXRfc)
