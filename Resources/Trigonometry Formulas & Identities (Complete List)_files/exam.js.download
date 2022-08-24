@@ -1,0 +1,104 @@
+var EXAM_POPUP_FORM = {
+    
+	popupFormSubmitData: function (e, ele) {
+		e.preventDefault();
+		var sel = jQuery(ele);
+
+		var data_form_name	=	'';
+		var form_utm_medium =	'';
+		if (sel.attr('id') == 'register-popup-form-widget' || sel.attr('id') === 'exam-register-popup-form-widget') {
+			data_form_name	=	'Popup';
+			form_utm_medium = 'regFormLanding';
+		} else if (sel.attr('id') === 'join-byjus-form-widget' || sel.attr('id') === 'exam-join-byjus-form-widget') {
+			data_form_name	=	'Sidebar';
+			form_utm_medium = 'regFormWidget';
+		}
+		var formInputs = sel.find(".form-group input");
+		if (sel.find(".form-group input.input-valid").length == formInputs.length) {
+			var	existing_cta	=	sel.find('button[type="submit"]').html();
+			if (sel.attr('id') === 'exam-register-popup-form-widget' || sel.attr('id') === 'exam-join-byjus-form-widget') {
+				var firstName   	=    sel.find('[name="first_name"]').val();
+				var mobileNumber	=    sel.find('[name="mobile_number"]').val();
+				sel.find('button[type="submit"]').attr('disabled', true).html("Submitting..");
+				window.open('https://byjusexamprep.com/register-form/bep_reg?phone='+mobileNumber+'&user_name='+firstName+'&utm_campaign=byjusIntegration&utm_medium='+form_utm_medium+'&utm_source=banking');
+				GA_FLAG && ga("send", "event", INSTANCE_NAME + " " + data_form_name + " Exam Prep Data Form Successful", "Exam Prep Form Submission Data Stored", "URL: " + C_URL); // GA
+				CS_UTILITIES.removeToastMessage('page-form-popup-and-widget-0');
+				sel.addClass('hidden');
+				if (!sel.find('.register-form-widget-success-block').length) {
+					var successHtml = '<div class="register-form-widget-success-block"><div class="text-center success-message">';
+					if(data_form_name == 'Popup'){
+						successHtml	= successHtml + '<svg style="width:70px;height:100px" viewBox="0 0 24 24"><path fill="green" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" /></svg>';
+						successHtml	= successHtml + '<br>';
+					} else {
+						successHtml	= successHtml + '<svg style="width:70px;" viewBox="0 0 24 24"><path fill="green" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" /></svg>';
+						jQuery('.join-byjus-form-widget').find('.widget-content').children(':first-child').addClass('text-center');
+					}
+
+					jQuery("#register-modal-widget").addClass('submitted-successfully');
+					successHtml = successHtml + ' <h4>Thank you for connecting with BYJU\'S EXAM PREP!</h4>';
+					successHtml = successHtml + '<br>';
+					successHtml += '</div>' + '</div>';
+					sel.after(successHtml);
+				} else {
+					sel.find('.register-form-widget-success-block').removeClass('hidden');
+				}
+			}
+			else{
+			sel.find('button[type="submit"]').attr('disabled', true).html("Submitting..");
+			var post_data 		= 	sel.serialize();
+			post_data			+=	'&current_url=' + escape(C_URL);
+			jQuery.post(CONFIG.apis.db.popup_form_api, post_data, function (data, status) {
+				if (data) {
+					data 		=	JSON.parse(data);
+					if (data.success) {
+						CS_UTILITIES.removeToastMessage('page-form-popup-and-widget-0');
+						sel.addClass('hidden');
+						if (!sel.find('.register-form-widget-success-block').length) {
+							var successHtml = '<div class="register-form-widget-success-block"><div class="text-center success-message">';
+							if(data_form_name == 'Popup'){
+								successHtml	= successHtml + '<svg style="width:70px;height:100px" viewBox="0 0 24 24"><path fill="green" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" /></svg>';
+								successHtml	= successHtml + '<br>';
+							} else {
+								successHtml	= successHtml + '<svg style="width:70px;" viewBox="0 0 24 24"><path fill="green" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" /></svg>';
+								jQuery('.join-byjus-form-widget').find('.widget-content').children(':first-child').addClass('text-center');
+							}
+
+							jQuery("#register-modal-widget").addClass('submitted-successfully');
+							successHtml = successHtml + ' <h4>Thank you for connecting with BYJU\'S!</h4>';
+							successHtml = successHtml + '<br>';
+							successHtml = successHtml + ' Communications regarding lectures & crash courses will be shared with you soon.';
+							successHtml += '</div>' + '</div>';
+							sel.after(successHtml);
+						} else {
+							sel.find('.register-form-widget-success-block').removeClass('hidden');
+						}
+
+						if (sel.attr('id') == 'register-popup-form-widget') {
+							MAIN_UTILITIES.setCookie("pagebformypopupj",1,15);
+						}
+						GA_FLAG && ga("send", "event", INSTANCE_NAME + " " + data_form_name + " Data Form Successful", "Form Submission Data Stored", "URL: " + C_URL); // GA
+					} else {
+						sel.find('button[type="submit"]').attr('disabled', false).html(existing_cta);
+						CS_UTILITIES.addToastMessage('page-form-popup-and-widget-0', data.message);
+						GA_FLAG && ga("send", "event", INSTANCE_NAME + " " + data_form_name + " Data Form Failed", "Form Submission Data Failed", "URL: " + C_URL); // GA
+					}
+				} else {
+					sel.find('button[type="submit"]').attr('disabled', false).html(existing_cta);
+					CS_UTILITIES.addToastMessage('page-form-popup-and-widget-0',"Please try after sometime!");
+				}
+			});
+		}
+
+		} else {
+			e.preventDefault();
+			formInputs.each(function (i, ele) {
+				jQuery(ele).blur();
+			});
+		}
+
+		//ga
+		if (GA_FLAG) {
+			ga("send", "event", "Form Data " + data_form_name + " Button Click: " + FORM_NAME, "On Submitting Form", "Form Values: " + jQuery(ele).serialize());
+		}
+	},
+}

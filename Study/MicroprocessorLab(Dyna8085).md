@@ -12,7 +12,7 @@ RST 1
 ```
 
 **8 Bit Division**
-```
+```R
 A C000
 MVI A,06
 MVI B,00
@@ -27,7 +27,7 @@ RST 1
 
 
 **16 Bit Division**
-```
+```R
 A C000
 LXI H,3000
 LXI D,0500

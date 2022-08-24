@@ -1,0 +1,862 @@
+// DAILY interactive QUIZ snippet js
+(function () {
+    jQuery('[data-interactive-quiz-name]').each(function (i, item) {
+        // to get data from api and creating items
+
+        $('body').append('<script src="' + CDN + 'byjusweb/js/vendors/fabric.min.js"></script>');
+
+        var ele = jQuery(item);
+        var quizName = ele.attr("data-interactive-quiz-name");
+        if (!quizName) return; // to return nothing if json url not present
+
+        // click actions Ias
+        var quiz_gtag_name = '';
+        ele.find("[data-quiz-start]").click(function () {
+            var btn = jQuery(this);
+            ele.find('.interactive-quiz-ias-start-error-msg').length && ele.find('.interactive-quiz-ias-start-error-msg').remove();
+            btn.html('Loading..').attr('disabled', false);
+            var apiUrl = '';
+            if (quizName == 'SinglePageQuiz') {
+                var requested_page_url = ele.find('.requested-page-url').val();
+                quiz_gtag_name = quizName;
+                apiUrl = CONFIG.apis.db.interactive_questions + '&requested_page_url=' + requested_page_url;
+            } else {
+                quiz_gtag_name = 'InteractiveIASQuiz';
+                apiUrl = COMMON_UTILS_ENDPOINT_KEY + 'quiz?quizName=' + quizName;
+            }
+            jQuery.get(apiUrl).done(function (data) {
+                if (data) {
+                    btn.html('Start Quiz').attr('disabled', false);
+                    interactiveQuizCarouselFun(data, ele, i, quiz_gtag_name);
+                } else {
+                    btn.html('Start Quiz').attr('disabled', false);
+                    btn.after('<div class="interactive-quiz-ias-start-error-msg col-md-8 col-md-offset-4" style=" font-size: 14px; margin-top: 5px; color: red;">Something went wrong. Please try after some time</div>');
+                }
+            }).fail(function (xhr, err) {
+                btn.html('Start Quiz').attr('disabled', false);
+                btn.after('<div class="interactive-quiz-ias-start-error-msg col-md-8 col-md-offset-4" style=" font-size: 14px; margin-top: 5px; color: red;">Something went wrong. Please try after some time</div>');
+            });
+
+            jQuery(this).find(".quiz-ias-next-previous-btn").removeClass("hidden");
+            if (GA_FLAG) {
+                ga("send", {
+                    hitType: 'event',
+                    eventCategory: quiz_gtag_name,
+                    eventAction: 'Start'
+                }, {
+                    hitType: 'pageview',
+                    page: location.pathname
+                }); //ga
+            }
+        });
+    });
+
+
+    var matchTheFollowingCounter = null;
+
+    function interactiveQuizCarouselFun(data, ele, frameIndex, gtag_name) {
+        var htmlString = "";
+        var questionLength = data["quizQuestionsCount"];
+        var questions = data["quizRecords"];
+        var quizCarousel = ele.find(".carousel");
+        var is_explanation = ele.find('.answer-explanation').val();
+        var explanation_txt = (is_explanation == "1") ? 'Explanation' : '';
+        var quizAnswersHtml = '';
+        for (var i = 0; i < questionLength; i++) {
+            var question = questions[i];
+            var prevBtnFun, nextBtnFun;
+            if (i === 0) {
+                prevBtnFun = '<button type="button" class="btn btn-secondary prev-next-btn-ias prev button-radius" value="click" disabled>Previous</button>';
+                nextBtnFun = '<button type="button" class="btn btn-secondary prev-next-btn-ias next" value="click">Next</button>';
+            } else if (i === questionLength - 1) {
+                prevBtnFun = '<button type="button" class="btn btn-secondary prev-next-btn-ias prev" value="click" >Previous</button>';
+                nextBtnFun = '<button type="button" class="btn btn-secondary prev-next-btn-ias next finish" value="click">Finish</button>';
+            } else {
+                prevBtnFun = '<button type="button" class="btn btn-secondary prev-next-btn-ias prev" value="click">Previous</button>';
+                nextBtnFun = '<button type="button" class="btn btn-secondary prev-next-btn-ias next" value="click">Next</button>';
+            }
+            htmlString +=
+                "" +
+                '<div class="item">' +
+                '<div class="interactive-quiz-item-content-ias">' +
+                "<p>" +
+                (question.question.questionPartOne ? question.question.questionPartOne : '') +
+                "</p>" +
+                "<p>" +
+                (question.question.questionType === "matchTheFollowing" ? buildMatchTheFollowing(question.matchTheFollowingLhs, question.matchTheFollowingRhs, question.matchTheFollowingColors, question.matchTheFollowingAns) : '') +
+                "</p>" +
+                "<p>" +
+                (question.question.questionType === "sutableNumber" ? sutableNumber(question.question.questionImagesPartOne[0], question.sutableNumberArray, question.sutableNumberArray.length, i) : '') +
+                (question.question.questionType === "defaultTextBoxQuestion" ? defaultTextBoxQuestion(question.question.questionTextBoxBeforeText, question.question.questionSymbol, question.question.questionText, question.textBoxAns) : '') +
+                (question.question.questionType === "textBoxQuestion" ? textBoxQuestion(question.question.questionTextBoxBeforeText, question.question.questionSymbol, question.question.questionText, i) : '') +
+                (question.question.questionType === "single-image" ? imageTypeQuestion(question.question.questionImagesPartOne[0]) : '') +
+                (question.question.questionType === "lineQuestion" ? lineQuestion(question.lineQuestionArray, question.lineQuestionArray.length, i) : '') +
+                (question.question.questionType === "singleImageTextBox" ? boxTypeQuestion(question.question.questionImagesPartOne[0], i) : '') +
+                (question.question.questionType === "nameShape" ? nameShape(question.question.questionImagesPartOne[0], i) : '') +
+
+                "</p>" +
+                (question.question.questionOptionsListIn === 'number' ? buildListHtml('ol style="list-style:none"', question.question.questionList) : buildListHtml("ul", question.question.questionList)) +
+                (question.question.questionPartTwo ? '<p class="ias-question-font mb10">' + question.question.questionPartTwo + '</p>' : '') +
+                (question.question.questionType !== 'seriesOption' && question.question.questionType !== 'imageOptionType' && question.question.questionType !== 'simularImageOptions' ? buildIasOptionsHtml(question["options"], i) : '') +
+                (question.question.questionType === 'seriesOption' ? buildSeriesIasOptionsHtml(question["options"], i) : '') +
+                (question.question.questionType === 'imageOptionType' ? buildarcImageOptionIasOptionsHtml(question["options"], i) : '') +
+                (question.question.questionType === 'simularImageOptions' ? buildImageOptionIasOptionsHtml(question["options"], i) : '') +
+                (question.question.questionType === 'seriesTypeQuestion' ? seriesTypeQuestion(question.seriesArray, question.seriesArray.length, i) : '') +
+                (question.question.questionType === 'blankSeriesTypeQuestion' ? blankseriesTypeQuestion(question.seriesArray, question.seriesArray.length, i) : '') +
+                (question.question.questionType === 'imageOption' ? imageOptionTypeQuestion(question.imageOptions, question.imageOptions.length) : '') +
+                (question.question.questionType === 'multipleImageMultipleTextBox' ? multiImageTypeQuestion(question.question.questionImagesPartOne, question.question.questionImagesPartOne.length, i) : '') +
+                (question.question.questionType === 'singleImageMultipleTextboxQuestion' ? singleImageMultiBoxTypeQuestion(question.textBoxBeforeText, question.question.questionImagesPartOne, question.question.numberOfFields, i) : '') +
+                (question.question.questionType === 'singleImageRomanMultipleTextboxQuestion' ? singleImageRomanMultiBoxTypeQuestion(question.roman1, question.roman2, question.question.questionImagesPartOne, question.question.numberOfFields, i) : '') +
+                "</div>" +
+                '<div class="btn-group quiz-ias-next-previous-btn" role="group" aria-label="Basic example">' +
+                prevBtnFun +
+                nextBtnFun +
+                "</div>" +
+                "</div>";
+            var countCarousel = ele.find('.carousel .item.active').index('.carousel .item');
+            countCarousel++;
+
+            // quizAnswersHtml
+            quizAnswersHtml += '<div class="ias-card-content-padding">' +
+                '<p class=" mt ias-question-font">Q' + (i + 1) + ' ' + explanation_txt + ': <span class="card-ans-color">Answer is ' + question.keyAnswer.toUpperCase() + '</span></p>';
+            if (question.question.questionType === 'simularImageOptions' || question.question.questionType === 'imageOptionType' || question.question.questionType === "sutableNumber" || question.question.questionType === "matchTheFollowing") {
+                quizAnswersHtml +=
+                    '<p class="card-list-content"><img src=' + question.correctAnswerResponse + ' alt="answer-image"></p>';
+
+            } else {
+                quizAnswersHtml += '<p class="card-list-content">' + question.correctAnswerResponse + '</p>';
+
+            }
+            quizAnswersHtml += '</div>';
+        }
+        ele.find(".carousel-inner .item.active").after(htmlString);
+        (question.question.questionType === 'matchTheFollowing' ? matchTheFollowingInits('match-the-following', question.matchTheFollowingColors, question.matchTheFollowingAns) : '');
+        
+        quizCarousel.carousel("next");
+
+        quizCarousel.find('button.next').on('click', function () {
+            quizCarousel.carousel("next");
+        });
+        quizCarousel.find('button.prev').on('click', function () {
+            quizCarousel.carousel("prev");
+        });
+        quizCarousel.find('[data-view-quiz-answers-cta]').on('click', function () {
+            var button = jQuery(this);
+
+            if (!quizCarousel.find('[data-view-quiz-answers-list]').length) {
+                jQuery(this).after('<div class="ias-card-body" data-view-quiz-answers-list><div class="collapse"><div class="card card-body">' + quizAnswersHtml + '</div></div></div>');
+
+                var collapseBlock = quizCarousel.find('[data-view-quiz-answers-list]>.collapse');
+                collapseBlock.on('shown.bs.collapse', function () {
+                    jQuery(window).scrollTop(jQuery(window).scrollTop() + 1); // for fitting scroll position
+                });
+
+                collapseBlock.on('hidden.bs.collapse', function () {
+                    jQuery(window).scrollTop(jQuery(window).scrollTop() - 1); // for fitting scroll position
+                });
+            }
+            quizCarousel.find('[data-view-quiz-answers-list]>.collapse').collapse('toggle');
+        });
+
+        // for carousel action on after slide we are setting components for slide
+        quizCarousel.on("slid.bs.carousel", function () {
+            var accuracyPercent;
+            var activeIndex = jQuery(this).find(".item.active").index();
+
+            var answerdCount = 0,
+                wrongCount = 0;
+            var questionsCount = questionLength;
+            //for removing count div for main screen
+            if (activeIndex === 0 || activeIndex === questionsCount + 1) {
+                ele.find('.interactive-quiz-header-ias .question-count').addClass('hidden');
+            } else {
+                ele.find('.interactive-quiz-header-ias .question-count').removeClass('hidden').html("Q" + '<span class="badge class value">' + activeIndex + '</span>'); //Adding question count on header
+            }
+            //checking correct answer after click on options
+            ele.find('.carousel .item input:checked').each(function (answeredIndex, answeredItem) {
+                if (questions[jQuery(answeredItem).attr('keyInput-id')]['keyAnswer'].toLowerCase() === jQuery(answeredItem).val().toLowerCase()) {
+                    answerdCount++;
+                } else {
+                    wrongCount++;
+                }
+            })
+
+
+            ele.find('.carousel .item input[data-input-validation="box-type-question"]').each(function (answeredIndex, answeredItem) {
+                if (jQuery(answeredItem).val() !== '') {
+                    if (questions[jQuery(answeredItem).attr('keyInput-id')]['keyAnswer'] === jQuery(answeredItem).val()) {
+                        answerdCount++;
+                    } else {
+                        wrongCount++;
+                    }
+                }
+            })
+
+
+            var multiBoxCounter = 0;
+            ele.find('.carousel .item input[data-input-validation="multi-box-type-question"]').each(function (answeredIndex, answeredItem) {
+                var multiBoxAnswerValidation = questions[jQuery(answeredItem).attr('keyInput-id')]["multiBoxAnswers"];
+                if (multiBoxAnswerValidation[answeredIndex] === jQuery(answeredItem).val()) {
+                    multiBoxCounter++;
+                }
+
+                if (jQuery(answeredItem).val() !== '') {
+                    if (answeredIndex === multiBoxAnswerValidation.length - 1) {
+                        if (multiBoxCounter === multiBoxAnswerValidation.length) {
+                            answerdCount++;
+                        } else {
+                            wrongCount++;
+                        }
+                    }
+                }
+            })
+
+
+            //match the following  question validation
+            if (question.question.questionType === 'matchTheFollowing') {
+                var answerLength = question.matchTheFollowingAns.length;
+                var lengthcounter = 0;
+                for (var i = 0; i < answerLength; i++) {
+                    if (matchTheFollowingCounter && matchTheFollowingCounter[i] === true) {
+                        lengthcounter++;
+                    }
+
+                }
+                if (matchTheFollowingCounter !== null) {
+                    if (lengthcounter === answerLength) {
+                        answerdCount++;
+                    } else {
+                        wrongCount++;
+                    }
+                }
+            }
+            // register-form-widget-success-block
+            //getting correctAnswer,wrong answer,unattempted questions and percentage
+            var resultHtml = '' +
+                '<div><span><span class="wrong-count-register-form-widget wrong-ans-color">' + wrongCount + '</span> out of<span class="total-question-color"> ' + questionsCount + '</span> are Wrong</span></div>' +
+                '<div><span class="correct-count-register-form-widget correct-ans-color">' + answerdCount + '</span> out of<span class="total-question-color"> ' + questionsCount + '</span> are Correct</span></div>' +
+                '<div><span class="unattempted-count-register-form-widget unattempted-ans-color">' + (questionsCount - (answerdCount + wrongCount)) + '</span> out of<span class="total-question-color"> ' + questionsCount + '</span> are Unattempted</span></div>';
+            ele.find('.carousel .interactive-quiz-ias-display-result').html(resultHtml);
+            accuracyPercent = ((+answerdCount) / (+questionsCount)) * 100;
+            ele.find(".ias-quiz-result-percentage").text('Accuracy Percentage: ' + accuracyPercent.toFixed(2) + '%');
+            if (accuracyPercent >= 60) {
+                ele.find('.register-form-widget-success-block').html('<img class = "img-box-shadow" src="' + CDN + 'byjusweb/img/interactive-quiz/Interactive-quiz-thums-up.svg" width="44.613" height="48.333" box-shadow: none;><div class="ias-font-green mb20;"><p>Congrats!</p></div>');
+            } else {
+                ele.find('.register-form-widget-success-block').html('<img class = "img-box-shadow" src="' + CDN + 'byjusweb/img/interactive-quiz/interactive-quiz-thumps-down.svg" width="44.613 height="48.333" box-shadow: none;><div class="ias-font-red mb20;"><p>Better luck next time!</p></div>');
+            }
+
+            jQuery(window).scrollTop(jQuery(window).scrollTop() + 1); // for fitting scroll position
+            jQuery('html, body').animate({
+                scrollTop: ele.offset().top - (jQuery('.header.fixed-header').length ? jQuery('.header.fixed-header').outerHeight() + 15 : 15)
+            }, 400);
+
+            if (GA_FLAG && activeIndex > questionLength) {
+                ga("send", {
+                    hitType: 'event',
+                    eventCategory: gtag_name,
+                    eventAction: 'Finished'
+                }, {
+                    hitType: 'pageview',
+                    page: location.pathname
+                }); //ga
+            }
+        });
+
+        if (GA_FLAG) {
+            jQuery(ele).find('.next').click(function () {
+                ga("send", {
+                    hitType: 'event',
+                    eventCategory: gtag_name,
+                    eventAction: 'NextButtonClicked'
+                }, {
+                    hitType: 'pageview',
+                    page: location.pathname
+                });
+            });
+
+            ele.find('.prev').click(function () {
+                ga("send", {
+                    hitType: 'event',
+                    eventCategory: gtag_name,
+                    eventAction: 'PrevButtonClicked'
+                }, {
+                    hitType: 'pageview',
+                    page: location.pathname
+                });
+            });
+        }
+
+        // allow only numbers
+    }
+
+    function buildListHtml(type, arr) { //function to build list of questions dynamically
+        var htmlString = "";
+        if (arr && arr.length > 0) {
+            htmlString += "<" + type + ">";
+            for (var i = 0; i < arr.length; i++) {
+                htmlString += '<li class="ol-list-content">' + arr[i] + "</li>";
+            }
+            htmlString += "</" + type + ">";
+        }
+        return htmlString;
+    }
+
+    function imageTypeQuestion(imageval) {
+        var imageType = "",
+            image = "yes"
+        if (image) {
+            imageType += '<div class="row quiz-question-question-image">' +
+                '<div class="col-sm-12">' +
+                '<div class="quiz-question-image-block">' +
+                '<div class="quiz-question-image-block-content zoom-img">' +
+                '<img src="' + imageval + '" alt="Question Reference image"  class="single-image-alignment">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+        }
+        return imageType;
+    }
+
+    function sutableNumber(imageval, array, length, ind) {
+        var imageType = "",
+            scrollText = "",
+            sutableNumberQuestion = "",
+            image = "yes"
+        if (image) {
+
+            for (var i = 0; i < length; i++) {
+                if (array[i] === "blank") {
+                    imageType += '<input type="text" name="number" class="number-input1" data-allow-only-numbers="" data-input-validation="multi-box-type-question" keyInput-id="' + ind + '">'
+                } else {
+                    imageType += '<b>' + array[i] + '</b> '
+                }
+            }
+            scrollText += '<span class="scrollText">[Scroll Right To View Full Question]</span>';
+            sutableNumberQuestion += '<div class="sutable-number-scroll">' + `<div class="suitable-number-block" style="background-image:url('` + imageval + `')">` + imageType + `</div>` + '</div>'
+        }
+        return scrollText + sutableNumberQuestion;
+    }
+
+    function textBoxQuestion(beforeText, symbol, afterText, ind) {
+        var textBoxquestion = "",
+            textbox = "yes"
+        if (textbox) {
+            textBoxquestion += '<div class="row quiz-question-question-textBox">' +
+                '<div class="col-sm-6">' +
+                '<div class="quiz-question-textBox-block">' +
+                '<div class="quiz-question-textBox-block-content zoom-img">' +
+                '<span class="textbeforeText">' + beforeText + '</span>' +
+                '<input type="text" class="text-box multi-image-text questionTextBox" inputTextBox name="image-text-box" placeholder="Ans" data-input-validation="box-type-question" keyInput-id="' + ind + '">' +
+                '<span class="symbol">' + symbol + '</span>' +
+                '<span class="afterText">' + afterText + '</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        return textBoxquestion;
+    }
+
+    function lineQuestion(array, length, ind) {
+        var htmlStringClose = "";
+        var htmlString = "";
+        var line = "yes";
+        var lineQuestion = "";
+        var scrollText = "";
+        var counter = 50;
+        var lineWidth = 0;
+        var horizontalLine = '';
+        var moveRight = 0;
+        var arrowRight = '';
+        var arrowLeft = '';
+        if (line) {
+            htmlString += '<div class="lineQuestion-scroll">';
+            htmlString += '<div class="lineQuestion">';
+            for (var i = 0; i < length; i++) {
+                lineWidth += 8;
+                moveRight += 54.4;
+
+                if (array[i] === "blank") {
+                    lineQuestion += '<input type="text" class="series-box" name="image-text-box" placeholder="___"  data-input-validation="box-type-question" keyInput-id="' + ind + '">';
+                } else {
+                    lineQuestion +=
+                        '<span class="line-text" >' + array[i] + '</span>';
+                }
+
+                lineQuestion += '<p class="verticalLine" style="margin-left: ' + (counter) + 'px;"></p>'
+                counter += 51;
+
+            }
+            scrollText += '<span class="scrollText">[Scroll Right To View Full Question]</span>';
+            horizontalLine += '<hr class="horizontalLine" style="width: ' + (312) + 'px;"></hr>';
+            arrowRight += '<p class="arrow-right" style="margin-left: ' + (moveRight) + 'px;"></p>';
+            arrowLeft += '<p class="arrow-left"></p>'
+            htmlStringClose += '</div>';
+            htmlStringClose += '</div>';
+        }
+
+        return htmlString + scrollText + horizontalLine + arrowRight + arrowLeft + lineQuestion + htmlStringClose;
+    }
+
+
+    function defaultTextBoxQuestion(beforeText, symbol, afterText) {
+        var textBoxquestion = "",
+            textbox = "yes"
+        if (textbox) {
+            textBoxquestion += '<div class="row quiz-question-question-textBox">' +
+                '<div class="col-sm-12">' +
+                '<div class="quiz-question-textBox-block">' +
+                '<div class="quiz-question-textBox-block-content zoom-img">' +
+                '<span class="textbeforeText">' + beforeText + '</span>' +
+                '<input type="text" class="text-box multi-image-text questionTextBox" name="image-text-box" placeholder="" disabled>' +
+                '<span class="symbol">' + symbol + '</span>' +
+                '<span class="afterText">' + afterText + '</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+        return textBoxquestion;
+    }
+
+
+    function buildMatchTheFollowing(lhs, rhs) {
+        return `<div class="question match-the-following">
+        <span class="scrollText">[Scroll Right To View Full Question]</span>
+            <div class="question-content">
+                
+                <div class="match-block">
+                    <ul>
+                    ` +
+            (function () {
+                var blockHtml = '';
+                lhs.forEach(function (item, nIndex) {
+                    blockHtml += '<li>' + item + '</li>'
+                })
+                return blockHtml;
+            })() +
+            `
+                    </ul>
+                    <canvas id="match-the-following" width="162px" height="212px"></canvas>
+                    <ul>
+                    ` +
+
+            (function () {
+                var blockHtml = '';
+                rhs.forEach(function (item, nIndex) {
+                    blockHtml += '<li>' + item + '</li>'
+                })
+                return blockHtml;
+            })() +
+            `
+                    </ul>
+                </div>
+            </div>
+        </div>`;
+
+    }
+
+    function matchTheFollowingInits(canvasId, matchColors, ans) {
+        var canvas = this.__canvas = new fabric.Canvas(canvasId, {
+            selection: false
+        });
+        fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+
+        function makeCircle(left, top, isSelectable, line, fillColor, strokeColor, radius, id, objectAction) {
+            var c = new fabric.Circle({
+                left: left,
+                top: top,
+                strokeWidth: 4,
+                radius: radius,
+                fill: fillColor,
+                stroke: strokeColor,
+                id: id,
+                objectAction: objectAction
+            });
+            c.hasControls = false;
+            c.hasBorders = false;
+            c.selectable = isSelectable ? isSelectable : false
+
+            c.line = line;
+            return c;
+        }
+
+        function makeLine(coords, colorName, id) {
+            return new fabric.Line(coords, {
+                fill: colorName ? colorName : 'red',
+                stroke: colorName ? colorName : 'red',
+                strokeWidth: 4,
+                selectable: false,
+                evented: false,
+                id: id
+            });
+        }
+
+        var lines = []
+        var answer = {}
+        for (var i = 0; i < matchColors.length; i++) {
+            // lines
+            lines[i] = makeLine([50, (50) * (i + 1), 50, (50) * (i + 1)], matchColors[i], i)
+            canvas.add(lines[i]);
+
+            // circles
+            canvas.add(
+                makeCircle(lines[i].get('x1'), lines[i].get('y1'), false, null, matchColors[i], 'grey', 10, 'lhs-' + i, 'lhs'),
+                makeCircle(lines[i].get('x1') + 100, lines[i].get('y1'), false, null, 'transparent', 'grey', 10, 'rhs-' + i, 'rhs'),
+                makeCircle(lines[i].get('x1'), lines[i].get('y1'), true, lines[i], matchColors[i], matchColors[i], 5, 'move-' + i, 'move')
+            )
+
+            // answer
+            answer[i] = false
+        }
+        $('#match-the-following').html(JSON.stringify(answer));
+
+
+        var data = [];
+        canvas.on('object:moving', function (e) {
+            var obj = e.target;
+
+            // if object is too big ignore
+            if (obj.getScaledHeight() > obj.canvas.height || obj.getScaledWidth() > obj.canvas.width) {
+                return;
+            }
+            obj.setCoords();
+
+            // top-left  corner
+            if (obj.getBoundingRect().top < 0 || obj.getBoundingRect().left < 0) {
+                obj.top = Math.max(obj.top, obj.top - obj.getBoundingRect().top);
+                obj.left = Math.max(obj.left, obj.left - obj.getBoundingRect().left);
+            }
+
+            // bot-right corner
+            if (obj.getBoundingRect().top + obj.getBoundingRect().height > obj.canvas.height || obj.getBoundingRect().left + obj.getBoundingRect().width > obj.canvas.width) {
+                obj.top = Math.min(obj.top, obj.canvas.height - obj.getBoundingRect().height + obj.top - obj.getBoundingRect().top);
+                obj.left = Math.min(obj.left, obj.canvas.width - obj.getBoundingRect().width + obj.left - obj.getBoundingRect().left);
+            }
+
+            // drawing line
+            obj.line && obj.line.set({
+                'x1': obj.left,
+                'y1': obj.top
+            });
+
+            canvas.renderAll();
+
+            //   finding matched one's object id's
+            var subObj = canvas.getObjects();
+            var matchcounter = 0;
+            var activeObject = canvas.getActiveObject();
+            for (var i = 0; i < subObj.length; i++) {
+                if (subObj[i].intersectsWithObject(activeObject)) {
+                    if (subObj[i].objectAction === 'rhs' && activeObject.objectAction === 'move') {
+                        var riteIndex = activeObject.id.split('move-')[1];
+                        if ('rhs-' + ans[riteIndex] === subObj[i].id) {
+                            // console.log('Rite ans:', activeObject.id, subObj[i].id)
+                            answer[riteIndex] = true;
+                            matchcounter++;
+                        } else {
+                            answer[riteIndex] = false
+                        }
+                        // console.log('on movement: ', activeObject.id, subObj[i].id)
+                        $('#match-the-following').html(JSON.stringify(answer));
+
+                    }
+
+                }
+            }
+            matchTheFollowingCounter = answer;
+
+        });
+
+    }
+
+
+
+    function multiImageTypeQuestion(imageval, imagelen, ind) {
+        var imageType = "",
+            image = "yes"
+
+        if (image) {
+            imageType += '<div class="row">';
+            for (var i = 0; i < imagelen; i++) {
+                imageType += '<div class="quiz-question-question-image">' +
+                    '<div class="col-md-3 col-xs-6">' +
+                    '<div class="quiz-question-image-block">' +
+                    '<div class="quiz-question-multi-image-block-content zoom-img">' +
+                    '<img src="' + imageval[i] + '" alt="Question Reference image">' +
+                    '<input type="text" class="text-box multi-image-text" name="image-text-box" placeholder="eg:shape" data-input-validation="multi-box-type-question" keyInput-id="' + ind + '">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+            }
+
+            imageType += '</div>';
+        }
+        return imageType;
+    }
+
+    function imageOptionTypeQuestion(imageval, imagelen) {
+        var imageType = "",
+            image = "yes"
+
+        if (image) {
+
+            for (var i = 0; i < imagelen; i++) {
+                imageType += '<div class="row quiz-question-question-image">' +
+                    '<div class="col-sm-6">' +
+                    '<div class="quiz-question-image-block">' +
+                    '<div class="quiz-question-multi-imageOptions-block-content zoom-img">' +
+                    '<li><label class="image-label"><input type="radio" class="image-radio" /><img src="' + imageval[i] + '" alt="Question Reference image class="image-option-images""></label></li>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+            }
+        }
+        return imageType;
+    }
+
+    function boxTypeQuestion(image, ind) {
+        var boxType = "",
+            box = "yes"
+        if (box) {
+            boxType += '<div class="row box-type-question">' +
+                '<div class="col-sm-12">' +
+                '<img src="' + image + '" alt="Question Reference image" class="image-width-single-image-Question">' +
+                '<input type="text" class="text-box" name="image-text-box" placeholder="eg:x/y"  data-input-validation="box-type-question" keyInput-id="' + ind + '"  >' +
+                '</div>' +
+                '</div>';
+
+        }
+        return boxType;
+    }
+
+    function nameShape(image, ind) {
+        var boxType = "",
+            box = "yes"
+        if (box) {
+            boxType += '<div class="row box-type-question">' +
+                '<div class="col-sm-12">' +
+                '<img src="' + image + '" alt="Question Reference image" class="image-width-single-image-Question">' +
+                '<input type="text" class="text-box" name="image-text-box" placeholder="eg:shape"  data-input-validation="box-type-question" keyInput-id="' + ind + '"  >' +
+                '</div>' +
+                '</div>';
+
+        }
+        return boxType;
+    }
+
+    function singleImageMultiBoxTypeQuestion(textBeforeText, imageval, fieldlen, ind) {
+        var boxType = "",
+            box = "yes"
+        if (box) {
+            boxType += '<div class="row box-type-question">' +
+                '<div class="col-sm-12">' +
+                '<img src="' + imageval + '" alt="Question Reference image">' +
+                '</div>' +
+                '</div>';
+            boxType += '<span class="text-size just-text" >' + textBeforeText + '</span>';
+            for (var i = 0; i < fieldlen; i++) {
+                boxType += '<input type="text" class="normalTextBox" name="image-text-box" placeholder="Ans"  data-input-validation="multi-box-type-question" keyInput-id="' + ind + '">';
+            }
+        }
+        return boxType;
+    }
+
+    function singleImageRomanMultiBoxTypeQuestion(roman1, roman2, imageval, fieldlen, ind) {
+        var boxType = "",
+            box = "yes"
+        if (box) {
+            boxType += '<div class="row box-type-question">' +
+                '<div class="col-sm-12">' +
+                '<img id="roman-image" src="' + imageval + '"  alt="Question Reference image">' +
+                '</div>' +
+                '</div>';
+            boxType += '<span class="just-text roman" >' + roman1 + '</span>';
+            for (var i = 0; i < fieldlen; i++) {
+                boxType += '<input type="text" class="normalTextBox"  name="image-text-box" placeholder="Ans"  data-input-validation="multi-box-type-question" keyInput-id="' + ind + '">';
+                if (i === 1) {
+                    boxType += '<span class="just-text  roman" >' + roman2 + '</span>';
+                }
+            }
+        }
+        return boxType;
+
+    }
+
+    function seriesTypeQuestion(seriesArray, seriesArrayLength, ind) {
+        var seriesquestion = "",
+            series = "yes";
+        if (series) {
+            for (var i = 0; i < seriesArrayLength; i++) {
+                if (seriesArray[i] === 'blank') {
+                    seriesquestion += '<input type="text" class="series-box" name="image-text-box" placeholder="___"  data-input-validation="box-type-question" keyInput-id="' + ind + '">';
+                } else {
+                    seriesquestion +=
+                        '<span class="series-text" >' + seriesArray[i] + '</span>';
+                }
+
+            }
+        }
+        return seriesquestion;
+    }
+
+    function blankseriesTypeQuestion(seriesArray, seriesArrayLength, ind) {
+        var seriesquestion = "",
+            series = "yes"
+        if (series) {
+            for (var i = 0; i < seriesArrayLength; i++) {
+                if (seriesArray[i] === 'blank') {
+                    seriesquestion += '<input type="text" class="series-box margin-alignment-blank-question" name="image-text-box" placeholder="___"  data-input-validation="multi-box-type-question" keyInput-id="' + ind + '">';
+                } else {
+                    seriesquestion += '<div class="series-type-question">' +
+                        '<div class="col-sm-1">' +
+                        '<span class="series-text" >' + seriesArray[i] + '</span>' +
+                        '</div>' +
+                        '</div>';
+                }
+
+            }
+        }
+        return seriesquestion;
+    }
+
+
+
+    function buildIasOptionsHtml(arr, ind) { //function to create button dynamically
+        var htmlString = "",
+            keyVal = "";
+        if (arr && arr.length > 0) {
+            for (var j = 0; j < arr.length; j++) {
+                if (j === 0) {
+                    keyVal = "A";
+                    htmlString += '<div class="row">';
+                } else if (j === 1) {
+                    keyVal = "B";
+                } else if (j === 2) {
+                    htmlString += '<div class="row">';
+                    keyVal = "C";
+                } else {
+                    keyVal = "D";
+                }
+                htmlString += '' +
+                    '<div class="col-md-12 col-lg-6">' +
+                    '<label class="mb10 ias-label-default" for = "quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" >' +
+                    '<input type="radio" id="quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" name="options-' + ind + '" value="' + keyVal + '" keyInput-id="' + ind + '"/>' +
+                    '<span>' + '<span class="badge radio-badge">' + keyVal + "</span>" + '<div class="options-value">' + arr[j] + '</div>' + "</span>" +
+                    '</label>' +
+                    '</div>';
+                if (j === 1 || j === 3) {
+                    htmlString += '</div>';
+                }
+            }
+        }
+        return htmlString;
+    }
+
+
+    function buildImageOptionIasOptionsHtml(arr, ind) { //function to create button dynamically
+        var htmlString = "",
+            keyVal = "";
+        if (arr && arr.length > 0) {
+            for (var j = 0; j < arr.length; j++) {
+                if (j === 0) {
+                    keyVal = "A";
+                    htmlString += '<div class="row">';
+                } else if (j === 1) {
+                    keyVal = "B";
+                } else if (j === 2) {
+                    htmlString += '<div class="row">';
+                    keyVal = "C";
+                }
+                htmlString += '' +
+                    '<div class="col-md-12 col-lg-6">' +
+                    '<label class="mb10 ias-label-default" for = "quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" >' +
+                    '<input type="radio" id="quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" name="options-' + ind + '" value="' + keyVal + '" keyInput-id="' + ind + '"/>' +
+                    '<span>' + '<span class="badge radio-badge">' + keyVal + "</span>" + '<img alt="imageOption" src=' + arr[j] + '>' + "</span>" +
+                    '</label>' +
+                    '</div>';
+                if (j === 1 || j === 2) {
+                    htmlString += '</div>';
+                }
+            }
+        }
+        return htmlString;
+    }
+
+
+    function buildarcImageOptionIasOptionsHtml(arr, ind) { //function to create button dynamically
+        var htmlString = "",
+            keyVal = "";
+        if (arr && arr.length > 0) {
+            htmlString += '<div class="row">';
+            for (var j = 0; j < arr.length; j++) {
+                if (j === 0) {
+                    keyVal = "A";
+                } else if (j === 1) {
+                    keyVal = "B";
+                } else if (j === 2) {
+                    keyVal = "C";
+                } else {
+                    keyVal = "D";
+                }
+                htmlString += '' +
+                    '<div class="col-md-3 col-xs-6">' +
+                    '<label class="mb10 ias-label-default1" for = "quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" >' +
+                    '<input type="radio" id="quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" name="options-' + ind + '" value="' + keyVal + '" keyInput-id="' + ind + '"/>' +
+                    '<span>' + '<img alt="imageOption" src=' + arr[j] + '>' + "</span>" +
+                    '</label>' +
+                    '</div>';
+            }
+
+            htmlString += '</div>';
+        }
+        return htmlString;
+    }
+
+    function buildSeriesIasOptionsHtml(arr, ind) { //function to create button dynamically
+        var htmlString = "",
+            keyVal = "";
+        if (arr && arr.length > 0) {
+            for (var j = 0; j < arr.length; j++) {
+                if (j === 0) {
+                    keyVal = "A";
+                    htmlString += '<div class="row">';
+                } else if (j === 1) {
+                    keyVal = "B";
+                } else if (j === 2) {
+                    keyVal = "C";
+                } else if (j === 3) {
+                    keyVal = "D";
+                } else if (j === 4) {
+                    keyVal = "E";
+                } else if (j === 5) {
+                    keyVal = "F";
+                } else if (j === 6) {
+                    keyVal = "G";
+                } else {
+                    keyVal = "H";
+                }
+                htmlString += '' +
+                    '<div class="col-md-12 col-lg-3">' +
+                    '<label class="mb10 ias-label-default" for = "quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" >' +
+                    '<input type="radio" id="quizOptionlkjhyy54ujyht-' + ind + '-' + j + '" name="options-' + ind + '" value="' + keyVal + '" keyInput-id="' + ind + '"/>' +
+                    '<span>' + '<span class="badge radio-badge">' + keyVal + "</span>" + '<div class="options-value">' + arr[j] + '</div>' + "</span>" +
+                    '</label>' +
+                    '</div>';
+                if (j === 6) {
+                    htmlString += '</div>';
+                }
+            }
+
+        }
+        return htmlString;
+    }
+
+})();

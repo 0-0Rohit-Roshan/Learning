@@ -27,15 +27,22 @@
 - [Fourier transform of Periodic Signal](FourierTransform.md)
 - Continous wave modulation.
 
+### Continuos Wave Modulation
+- The Objective of modulation is to shift the base band to the frequency range suitable for Transmission .
+- 
 
+### Single Sideband Modulation
+[Yt](https://www.youtube.com/watch?v=0PyLguMXRfc)
 
-
-
-
-
-
-
-
+**Generation of SSB Signal**  
+[**Phase Shifter Method**](https://www.youtube.com/watch?v=D6IBERQFP3s)  
+**Detection of SSB Signal With a Carrier**
+- $$\phi_{SSB+C} = A_c Cos(2 \pi f_ct) + [m(t)Cos(2 \pi f_ct)+m_h(t)Sin(2 \pi f_ct)]$$
+- If the carrier signal can be extracted by narrow-band-filtering of $\phi_{SSB+C}$ then $m(t)$ can be recovered by `Coherrent detection` .
+- Alternatively if the carrier amplitude is large envlope then also $m(t)$ can be recovered using `envelop detection` .
+- $$\phi_{SSB+C} = [A_c + m(t)] Cos(2 \pi f_ct)+m_h(t)Sin(2 \pi f_c t)$$
+$$=E(t) Cos(e \pi f_c t + \theta)$$
+- Where $$E(t) = [[A_c + m(t)]^2 + m_h^2(t)]^\frac{1}{2}$$
 
 
 
