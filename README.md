@@ -1,5 +1,6 @@
 # Learning
 My learnings and notes
+- Have your `Rubics Cube` It is truely dynamic and relaxing
 
 | [Brain](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Brain)
 | [Body](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Body)

@@ -25,7 +25,10 @@
     * Application of Delta function ?
 - Fourier transform of Delta function
 - [Fourier transform of Periodic Signal](FourierTransform.md)
-- Continous wave modulation.
+- Continous wave modulation.  
+
+
+
 
 ### Continuos Wave Modulation
 - The Objective of modulation is to shift the base band to the frequency range suitable for Transmission .
@@ -36,7 +39,83 @@
 - `Q.` [Why only sinusuidal signal as carrier in modulation ?](https://www.quora.com/Why-are-sinusoidal-signals-used-as-carriers-in-modulation-technique)  
 `A.`  To avoid aliasing and bandwidth congestion we use sinusoidal waves for modulation techniques.
 
+## Amplitude Modulation
+- Carrier Signal $C(t) = A_c Cos(2 \pi f_c t)$  
+$A_c$ Carrier Amplitude | $f_c$ Carrier Frequency  
+- Message Signal $m(t)$
+- Amplitude of the Carrier is varied  about a mean value , linearly with $m(t)$. 
+- 
 
+**Linear Modulation Technique**
+- $S(t) = A_c (1+K_a m(t)) Cos(2 \pi f_c t)$  
+$K_a$ = Amplitude Sensitivity $[Volt^{-1}]$ 
+
+$K_a m(t) > 1$|$K_a m(t) < 1$
+--|--
+Overmodulated|
+Phase Revarsal|
+Envlop Distortion|Modulation % </br> $K_a m(t) x 100 < 100$ </br> avoid Envlope distortion.
+- For satisfactory envlop detection $f_c >> \omega_{message}$
+
+**Spectrum of AM Signal**
+- Spectrum of AM signal $S(t)$ is $S(f)$
+- $$S(f) = \frac{A_c}{2} [] + \frac{K_a A_c}{2} []$$
+- AM Spectrum 
+    - Two Delta function at $\pm f_c$
+    - Two .... baseband at $\pm f_c$
+
+```Note```
+- $f_c < \omega$ lower & upper side band at $-f_c$ and $+f_c$ will overlap and reasult in message distortion.
+- Baseband bandwidth $\omega$  
+Passband `Transmissionband` bandwidth $2 \omega$
+
+**Singleton Modulation**
+- $m(t) = A_m Cos(2 \pi f_m t)$  
+$S(t) = A_c[1 +  \mu Cos(2 \pi f_m t)]Cos(2 \pi f_c t) $  
+$\mu = K_a A_m$
+- $S(t) = ?$  
+$S(f) = ?$
+```
+Note
+```
+- Carrier Power - $\frac{1}{2} A_c^2$
+- Upper Side frequency power - $\frac{1}{8} \mu^2 A_c^2$
+- Lower Side frequency power - $\frac{1}{8} \mu^2 A_c^2$
+- Total Power in Modulated wave - $[\frac{1}{2}+\frac{1}{4}\mu^2]A_c^2$
+- Total power in side band (message part) = $\frac{1}{4} \mu^2 A_c^2$  
+- Power efficiency = $\frac{Total power in Side Band}{Total Power in Modulated Wave}$ =  $\frac{\mu^2}{2+\mu^2}$  
+For $\mu = 1$ power efficiency is 33% .
+
+### Generation of AM Signal
+[**Switching Modulator**](https://www.youtube.com/watch?v=tp0GaNKqaaY)
+- p
+- 
+
+
+**Demodulation of AM Signal**
+- **Envlop Detector**
+-
+- Design Requirments
+    - Charging time constant must be shorter than carrier period,$$(r_s + R_f)C<<\frac{1}{f_c}$$
+    - Discharging time constant must be larger compared to period of carrier wave , $$R_RC>> \frac{1}{f_c}$$
+    - Discharging time constant must be smaller than period of modulating message signal, $$R_RC << \frac{1}{\omega}$$
+
+```
+Note
+```
+- AM modulation is the oldest & cheapest method of modulation.
+- Generation
+    - Switching Modulator
+    - Square law Modulator
+- Recovery 
+    - Envlop Detector
+    - Square law Detector
+- AM modulation wastes power in carrier transmission. One band, either lower or upper band can be used
+- wasting bandwidth by useing both upper side band & lower side band.
+- Above disadvantages can be overcomed by
+    - Double sideband supressed carrier
+    - Single sideband carrier
+    - Vastigial sideband
 
 ### Single Sideband Modulation
 [Yt](https://www.youtube.com/watch?v=0PyLguMXRfc)
