@@ -1,6 +1,10 @@
 # Learning
 My learnings and notes
 - Have your `Rubics Cube` It is truely dynamic and relaxing
+- Learn like you are going to teach someone .
+- Learning is not `I will capture maximum info in short time` but learning is `Knwing \remembering whetever you read` .  
+
+
 
 | [Brain](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Brain)
 | [Body](https://github.com/0-0Rohit-Roshan/Learning/blob/main/Brain-Body-Network-Eyesight.md#Body)

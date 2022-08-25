@@ -97,13 +97,19 @@ For $\mu = 1$ power efficiency is 33% .
 - Assuming $|mt| << A_c$ then, $$V_2(t) \sim  $$
 - Thus diode isacting like a switch which is active only for the positive cycle of the Sine wave (carrier).
 - $V_2(t) = [A_c Cos(2 \pi f_c t) + m(t)] gt_0$
-- Representing $gt_0$ by Fourier series...
+- Representing $gt_0$ by Fourier series.$$g_{T_0}(t) = $$
 - 
 
 
 **Demodulation of AM Signal**
-- **Envlop Detector**
--
+- **Envlop Detector**  
+
+![IMG](/Resources/AMDemodulation.jpg)
+- Asumptions
+    - Narrow band AM wave ($f_c \gg f_m $)   
+    - Amplitude modulation % < 100%
+- In positive halfcycle of $S(t)$ , diode is forward biased and the capacitor rapidly changes to peak value , when $S(t)$ falls below the peak value, the capacitor starts to discharge by the load resistor til the $S(t)$ gets to voltage greater than voltage across capacitor . And the process repeats.
+
 - Design Requirments
     - Charging time constant must be shorter than carrier period,$$(r_s + R_f)C<<\frac{1}{f_c}$$
     - Discharging time constant must be larger compared to period of carrier wave , $$R_RC>> \frac{1}{f_c}$$
