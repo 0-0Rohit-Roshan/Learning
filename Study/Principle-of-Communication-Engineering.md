@@ -59,12 +59,14 @@ Envlop Distortion|Modulation % </br> $K_a m(t) x 100 < 100$ </br> avoid Envlope 
 
 **Spectrum of AM Signal**
 - Spectrum of AM signal $S(t)$ is $S(f)$
-- $$S(f) = \frac{A_c}{2} [] + \frac{K_a A_c}{2} []$$
+- $$S(f) = \frac{A_c}{2} [\delta(f-f_c) + \delta(f+f_c)] + \frac{K_a A_c}{2} [m(f-f_c)+m(f+f_c)]$$
 - AM Spectrum 
     - Two Delta function at $\pm f_c$
     - Two .... baseband at $\pm f_c$
 
-```Note```
+```
+Note
+```
 - $f_c < \omega$ lower & upper side band at $-f_c$ and $+f_c$ will overlap and reasult in message distortion.
 - Baseband bandwidth $\omega$  
 Passband `Transmissionband` bandwidth $2 \omega$
@@ -73,8 +75,8 @@ Passband `Transmissionband` bandwidth $2 \omega$
 - $m(t) = A_m Cos(2 \pi f_m t)$  
 $S(t) = A_c[1 +  \mu Cos(2 \pi f_m t)]Cos(2 \pi f_c t) $  
 $\mu = K_a A_m$
-- $S(t) = ?$  
-$S(f) = ?$
+- $S(t) = A_c Cos(2 \pi f_c t) + \frac{1}{2} \mu A_c Cos(2 \pi (f_c+f_m) t) + \frac{1}{2} \mu A_c Cos(2 \pi (f_c-f_m) t)$  
+$S(f) = \frac{A_c}{2} [\delta(f-f_c) + \delta(f+f_c)] + \mu\frac{A_c}{4} [\delta(f-f_c-f_m) + \delta(f+f_c+f_m)] + \mu\frac{A_c}{4} [\delta(f-f_c+f_m) + \delta(f+f_c-f_m)]$
 ```
 Note
 ```
@@ -83,12 +85,19 @@ Note
 - Lower Side frequency power - $\frac{1}{8} \mu^2 A_c^2$
 - Total Power in Modulated wave - $[\frac{1}{2}+\frac{1}{4}\mu^2]A_c^2$
 - Total power in side band (message part) = $\frac{1}{4} \mu^2 A_c^2$  
-- Power efficiency = $\frac{Total power in Side Band}{Total Power in Modulated Wave}$ =  $\frac{\mu^2}{2+\mu^2}$  
+- Power efficiency = $\frac{Total ~power ~in ~Side Band}{Total ~Power ~in ~Modulated ~Wave}$ =  $\frac{\mu^2}{2+\mu^2}$  
 For $\mu = 1$ power efficiency is 33% .
 
 ### Generation of AM Signal
 [**Switching Modulator**](https://www.youtube.com/watch?v=tp0GaNKqaaY)
-- p
+- Asumption
+    - $A_c$ is large enough to switch across diode characteristics
+    - Diode is an ideal switch .
+- $$V_1(t) = A_c Cos(2 \pi f_c t) + m(t)$$
+- Assuming $|mt| << A_c$ then, $$V_2(t) \sim  $$
+- Thus diode isacting like a switch which is active only for the positive cycle of the Sine wave (carrier).
+- $V_2(t) = [A_c Cos(2 \pi f_c t) + m(t)] gt_0$
+- Representing $gt_0$ by Fourier series...
 - 
 
 
