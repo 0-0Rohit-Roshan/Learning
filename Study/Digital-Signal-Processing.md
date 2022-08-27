@@ -42,7 +42,20 @@ Two different Signals `X` & `Y` , Cross-correlation $r_{xy}$|
 
 
 
+### Z-Transform
+- S-Transform - Continuous System
+- Z-Transform - Discrete System
+- 
+Properties
+- Linearity
+- Time Shifting
+- Folding
+- Scaling
+- Differentiation in Z-Domain
+- Convolution
+- Correlation
 
+How Pole Location affects the response
 
 
 
