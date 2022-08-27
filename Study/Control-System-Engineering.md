@@ -72,6 +72,18 @@ Q. RLC Tank Circuit?
 - The main difference between an open-loop system and a closed-loop system is that the closed-loop system has the ability to self-correct while the open-loop system doesn't.
 
 
+#### Translational Mechanical System
+Mass | Spring | Viscous Damper
+--|--|--
+$F(s) = M S^2 X(s)$ | $F(s) = K X(s)$ | $F(s) = B S X(s)$
+$Kg$ | $N/m$ | $N.s/m$
+
+#### Rotational Mechaniocal Sysytem
+Moment of Inertia | Spring | Damper
+--|--|--
+$\tau(s) = J S^2 ~\theta(s)$ | $\tau(s) = K ~\theta(s)$ | $\tau(s) = B S ~\theta(s)$
+$Kg.m^2$ | $N.m/Rad$ | $N.m.s/Rad$
+
 
 
 
