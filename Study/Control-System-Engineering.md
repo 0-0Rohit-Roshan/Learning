@@ -72,6 +72,13 @@ Q. RLC Tank Circuit?
 - The main difference between an open-loop system and a closed-loop system is that the closed-loop system has the ability to self-correct while the open-loop system doesn't.
 
 
+#### Electrical System
+\ |Inductor | Capacitor | Resistor
+--|--|--|--
+Impedance |$$Ls$$ |$$\frac{1}{Cs}$$ | $$R$$
+Admitance | $$\frac{1}{Ls}$$ | $$Cs$$ | $$\frac{1}{R}$$ 
+
+
 #### Translational Mechanical System
 Mass | Spring | Viscous Damper
 --|--|--

@@ -29,6 +29,15 @@ $\therefore$ where $X(j \omega) = |X(j \omega)| \angle X(j \omega)$
 
  [Fourier transforms and delta functions](https://www.youtube.com/watch?v=8abBLKEZLaI)
 
+### Properties of Fourier Transform
+- Linearity
+- Time Scaling
+- Duality
+- Time Shift
+- 
+
+### Other Properties
+
 ### Fourier transform of Periodic Signal 
 [Neso](https://www.youtube.com/watch?v=9I4z5JPbvgg)
 - $X(t) = $ Periodic signal $\leftrightarrow X(\omega) = ?$
