@@ -77,12 +77,24 @@ Microwave Components
     - constant VSWR Circle
     - 1 round is 1/2 $\lambda$ L length of the transmission line
 
+### Impedance Matching & Tuning
+**Lumped Element Matching**
+- [Analytical](https://www.youtube.com/watch?v=_0AeDRugpqY)
+- [Smith Chart](https://www.youtube.com/watch?v=-UxkFRx_kQU)
+
+**Single Stub Tuning**
+
+**Double Stub Tunning**
+
+**The Quarter Wave Transformer**
 
 
+[**Theory of small Reflections & Multisection Transformer**](https://www.youtube.com/watch?v=KT7Uovcp6xU)
 
 
+## Microwave Network Analysis
 
-
+[**Lossless Network & Reciprocal Network**](https://www.youtube.com/watch?v=o1PIzXDYl3A)
 
 
 
