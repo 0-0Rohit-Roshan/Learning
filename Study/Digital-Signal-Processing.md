@@ -57,7 +57,8 @@ Properties
 
 How Pole Location affects the response
 
-
+### The Fourier Series for Continuous-Time Periodic Signals
+[1](https://www.youtube.com/watch?v=zNnZD60BXNw)
 
 
 
