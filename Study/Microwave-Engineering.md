@@ -96,6 +96,27 @@ Microwave Components
 
 [**Lossless Network & Reciprocal Network**](https://www.youtube.com/watch?v=o1PIzXDYl3A)
 
+`Q` Why we don't make the load resistance equal to the source resistance and have matching ? 
+
+
+## PYQ
+
+**18-19 Midsem Autumn**  
+
+`1`
+`i) A load impedance of ZL=80+j20𝜴 is to be matched to a Zo=100𝜴 line using a length 𝑙 of lossless line of characteristic impedance Z1. Find the required Z1(real).`  
+Impedance Matching [Using Formula](https://www.youtube.com/watch?v=qfJYzhwSNmc) | [Using Smith chart]()
+
+`ii) Write down the mathematical formula for average Power flow and Return loss in a Transmission line.`
+
+`iii) What are the input impedances for a transmission line terminated in a short circuit and open circuit?`
+
+
+
+
+
+
+
 
 
 
